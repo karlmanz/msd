@@ -1,0 +1,142 @@
+
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!--!!!!!!!!!!!!!!!! SKIPPED !!!!!!!!!!!!!-->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!--!!!!!!!!!!!!!!!! SKIPPED !!!!!!!!!!!!!-->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<div th:replace="Layout :: import"></div>
+<title>Recommended/Verified</title>
+
+
+</head>
+<body>
+
+	<!-- a wrapper is needed to push the content of the page when the 
+menu button is pressed -->
+	<div class="wrapper h-100">
+
+
+		<!-- Sidebar -->
+		<div th:replace="Layout :: sidemenu"></div>
+
+		<div id="content" style="width: 100%">
+
+			<!-- header -->
+			<div th:replace="Layout :: header"></div>
+
+			<!-- Page Content -->
+			<div id="PageContent" style="width: 100%">
+				<div class="container my-2">
+					<br> <br>
+					<h3>Recommended/Verified</h3>
+					<hr>
+					<br> <br> <a href="/Recommended"><button
+							class="btn btn-primary btn-sm mb-3">Refresh</button></a> <a
+						href="/New"><button class="btn btn-primary btn-sm mb-3">Create
+							New</button></a>
+
+
+					<!--  the following might cause a design problem RIP if any thing .. -->
+					<div
+						class="table table-stripped table-bordered table-responsive-md table1">
+						<table>
+
+							<thead>
+								<!--sorting function just replace the name of the column  -->
+								<tr>
+									<th>
+										<!-- Attribute name works here sortField=TITLE no need for TM_TITLE -->
+										<a
+										th:href="@{'/Recommended/page/' + ${currentPage} + '?sortField=DM_TITLE&sortDir=' + ${reverseSortDir}}">Title</a>
+									</th>
+									<th><a
+										th:href="@{'/Recommended/page/' + ${currentPage} + '?sortField=DM_REF_ID&sortDir=' + ${reverseSortDir}}">Reference
+											Code</a></th>
+									<th><a
+										th:href="@{'/Recommended/page/' + ${currentPage} + '?sortField=DM_STAFF_ID&sortDir=' + ${reverseSortDir}}">Staff
+											ID</a></th>
+									<th><a
+										th:href="@{'/Recommended/page/' + ${currentPage} + '?sortField=DM_RECIPIENT_NAME&sortDir=' + ${reverseSortDir}}">Recipient
+											Name</a></th>
+									<th><a
+										th:href="@{'/Recommended/page/' + ${currentPage} + '?sortField=DM_ENTER_BY&sortDir=' + ${reverseSortDir}}">Created
+											By</a></th>
+									<th><a
+										th:href="@{'/Recommended/page/' + ${currentPage} + '?sortField=DM_ENTER_BY&sortDir=' + ${reverseSortDir}}">Date
+											Created</a></th>
+									<!-- search  -->
+
+									<td style="width: 25%"><div class="input-group rounded">
+											<form th:action="@{/Recommended}" method="GET">
+												<input id="txtSearch" type="text" name="keyword"
+													class="form-control rounded" placeholder="Search"
+													aria-label="Search" aria-describedby="search-addon" /> <input
+													type="hidden" name="status" value="Recommended" />
+											</form>
+										</div></td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="doc:${listRecord}"
+									th:if="${doc.status == 'Recommended'}">
+									<!--    -->
+									<!-- need the DB column name here -->
+									<td th:text="${doc.title}"></td>
+									<td th:text="${doc.refID}"></td>
+									<td th:text="${doc.staffID}"></td>
+									<td th:text="${doc.recipientName}"></td>
+									<td th:text="${doc.enterBy}"></td>
+									<td th:text="${doc.enterDate}"></td>
+									<!-- Change this part! -->
+									<td><a
+										th:href="@{/showFormForUpdateDocument/{id}(id=${doc.id})}"
+										class="btn btn-primary">Update</a> <a
+										sec:authorize="hasAuthority('Admin')"
+										th:href="@{/deleteDocument/{id}(id=${doc.id})}"
+										class="btn btn-danger">Delete</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<br>
+					<div th:if="${totalPages > 0}">
+						<!-- test 1 ->0 -->
+						<div class="row col-sm-10">
+							<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+							<div class="col-sm-1">
+								<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+									th:if="${currentPage != i}"
+									th:href="@{'/Recommended/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+									<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+									&nbsp;
+								</span>
+							</div>
+							<div class="col-sm-1">
+								<a th:if="${currentPage < totalPages}"
+									th:href="@{'/Recommended/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+								<span th:unless="${currentPage < totalPages}">Next</span>
+							</div>
+
+							<div class="col-sm-1">
+								<a th:if="${currentPage < totalPages}"
+									th:href="@{'/Recommended/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+								<span th:unless="${currentPage < totalPages}">Last</span>
+							</div>
+						</div>
+					</div>
+					<br>
+				</div>
+				<!-- Page content -->
+				<!-- Footer -->
+				<div th:replace="Layout :: footer"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

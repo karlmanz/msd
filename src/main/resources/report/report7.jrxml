@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report7" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be7cbd55-254b-4665-9b55-bcaaa8331d5c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.default.font.name" value="Times New Roman"/>
+	<property name="ireport.background.image" value="C:\Projects\MSDLetterhead-jspr.jpg"/>
+	<property name="ireport.background.image.properties" value="true,true,0.25,-8,-8,0,0,809,190"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" fontSize="12" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="7a13a735-8843-4312-be94-5a69b22de887"/>
+	<queryString>
+		<![CDATA[SELECT
+     document_main.`dm_id` AS document_main_dm_id,
+     document_main.`dm_address` AS document_main_dm_address,
+     document_main.`dm_content` AS document_main_dm_content,
+     document_main.`dm_content_cc` AS document_main_dm_content_cc,
+     document_main.`dm_content_sign` AS document_main_dm_content_sign,
+     document_main.`dm_enter_by` AS document_main_dm_enter_by,
+     document_main.`dm_is_confidential` AS document_main_dm_is_confidential,
+     document_main.`dm_is_staff` AS document_main_dm_is_staff,
+     document_main.`dm_recipient_name` AS document_main_dm_recipient_name,
+     document_main.`dm_staff_id` AS document_main_dm_staff_id,
+     document_main.`dm_status` AS document_main_dm_status,
+     document_main.`dm_title` AS document_main_dm_title,
+     document_main.`dm_ref_num_id` AS document_main_dm_ref_num_id,
+     document_main.`dm_update_by` AS document_main_dm_update_by
+FROM
+     `document_main` document_main]]>
+	</queryString>
+	<field name="document_main_dm_id" class="java.lang.Long"/>
+	<field name="document_main_dm_address" class="java.lang.String"/>
+	<field name="document_main_dm_content" class="java.lang.String"/>
+	<field name="document_main_dm_content_cc" class="java.lang.String"/>
+	<field name="document_main_dm_content_sign" class="java.lang.String"/>
+	<field name="document_main_dm_enter_by" class="java.lang.String"/>
+	<field name="document_main_dm_is_confidential" class="java.lang.Boolean"/>
+	<field name="document_main_dm_is_staff" class="java.lang.Boolean"/>
+	<field name="document_main_dm_recipient_name" class="java.lang.String"/>
+	<field name="document_main_dm_staff_id" class="java.lang.String"/>
+	<field name="document_main_dm_status" class="java.lang.String"/>
+	<field name="document_main_dm_title" class="java.lang.String"/>
+	<field name="document_main_dm_ref_num_id" class="java.lang.Long"/>
+	<field name="document_main_dm_update_by" class="java.lang.String"/>
+	<group name="document_main_dm_content" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{document_main_dm_id}]]></groupExpression>
+		<groupHeader>
+			<band height="39" splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="14"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="802" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="296" y="76" width="240" height="181" backcolor="#FFFFCC" uuid="972bcaab-3b75-4e8e-b81e-7bc5adadee20">
+					<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4">
+					<pen lineWidth="1.0" lineColor="#CC9900"/>
+					<topPen lineWidth="1.0" lineColor="#CC9900"/>
+					<leftPen lineWidth="1.0" lineColor="#CC9900"/>
+					<bottomPen lineWidth="1.0" lineColor="#CC9900"/>
+					<rightPen lineWidth="1.0" lineColor="#CC9900"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Flowers: there are two flowers, the first one is printed only starting from the second page, the other one only in the first page.]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="-16" y="-18" width="590" height="820" uuid="d9defb0a-1594-4e31-9fe9-9d353b595cdd"/>
+				
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<frame>
+				<reportElement x="53" y="0" width="448" height="58" isPrintWhenDetailOverflows="true" uuid="ada186d8-b4d1-46eb-b6df-026fd530f474"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="0" width="448" height="20" isPrintWhenDetailOverflows="true" uuid="406c41af-a1dc-43b3-9280-f1217a39ab3f"/>
+					<textElement textAlignment="Justified" markup="html">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{document_main_dm_content}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<frame>
+				<reportElement mode="Transparent" x="2" y="0" width="553" height="30" forecolor="#D0B48E" backcolor="#FFFFFF" uuid="ea556530-bcaa-4f2f-9bb9-1df77553b70a"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="513" y="-1" width="40" height="13" forecolor="#FFFFFF" uuid="ddab3a9d-fc5a-4ae6-bdb2-1783d8eb6902"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="433" y="-1" width="80" height="13" forecolor="#FFFFFF" uuid="ce1064ab-926d-4bc4-8c9f-7a9893a0d472"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="2" y="0" width="197" height="13" forecolor="#FFFFFF" uuid="0a3015a7-d4f2-4567-8012-a57b374ff166"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="2" y="0" width="551" height="30" uuid="76d08b5d-1090-4b55-945f-66cb4f64db55"/>
+					<textElement textAlignment="Center">
+						<font size="5"/>
+					</textElement>
+					<text><![CDATA[MANAGEMENT SERVICES DIVISION
+Level 3, Muhammad Abdul-Rauf Building, International Islamic University Malaysia, Jalan Gombak, 53100 Kuala Lumpur
+Registration No.: 198301005860 (101067-P)
+Tel: +603 6421 5556 | Fax: +603 6421 4997 | Email: msd@iium.edu.my | Website: www.iium.edu.my/msd
+]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

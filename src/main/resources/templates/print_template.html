@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Print Template</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" href="../static/css/owl.carousel.min.css"
+	th:href="@{/css/owl.carousel.min.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/Template.css"
+	th:href="@{/css/Template.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/print.css"
+	th:href="@{/css/print.css}">
+<script type="text/javascript" th:src="@{/js/editor.js}"></script>
+<script
+	src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"
+	referrerpolicy="origin"></script>
+<script>
+	tinymce.init({
+		selector : 'textarea#editor',
+	//menubar: false
+	});
+</script>
+
+</head>
+<body>
+
+	<div class="Viewcontainer" style="width: 100%; height: 100%">
+
+		<!-- <form action="#" th:object="${templateMain}" method="POST"> -->
+
+		<!-- <img src="MSDLH0000.jpg" width="100%" height="100%">-->
+		<!--  <img src="..resources/static/img/MSDLH0001.jpg" th:src="@{resources/static/img/MSDLH0001.jpg}"/> -->
+
+
+		<img th:src="@{/img/MSDLH0001.jpg}" alt="image" style="width: 100%">
+		<!--  <p class="top-left"  th:inline="text">
+  [[${templateMain.content}]]</p>-->
+		<div class="top-left" th:utext="${templateMain.content}"></div>
+		<!-- <div style="position:absolute;  
+                z-index:1;  
+                top:150px;
+                 left:80px;  
+                 width: 580px;
+                 /* height: 1047px; */
+                 
+                display: inline-block;
+                -webkit-print-color-adjust: exact;text-align: left;">
+                 -->
+		<br />
+		<!--   
+                <span class="lead font-italic" th:text="${templateMain.title}"> </span>
+               <span  th:text="${templateMain.content}">    </span>
+                 <textarea id=tmtemplate disabled="true" style="border: none;background-color:white;" >
+    				<p th:value="${templateMain.content}">test</p>
+				</textarea> -->
+		<!--  
+				<script th:inline="javascript">
+					document.write(/*[[${templateMain.content}]]*/ 'value');
+				</script>-->
+
+
+
+
+	</div>
+	<!-- </div> -->
+	<!-- end front page -->
+
+	<!-- <button type="submit" class="btn btn-info col-2"> Print Template</button> -->
+	<!--  </form>-->
+
+
+</body>
+
+</html>
+

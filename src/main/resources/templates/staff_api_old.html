@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="Layout :: import"></div>
+    <link rel="stylesheet" type="text/css" href="../static/css/Api.css" th:href="@{/css/Api.css}">
+      <script type="text/javascript" th:src="@{/js/menu.js}"></script> 
+    <script type="text/javascript" th:src="@{/js/editor.js}"></script> 
+<title>API</title>
+</head>
+
+<meta charset=utf-8 />
+
+<body>
+
+<!-- a wrapper is needed to push the content of the page when the 
+menu button is pressed -->
+<div class="wrapper h-100">
+
+ 
+<!-- Sidebar -->
+<div th:replace="Layout :: sidemenu"></div>
+
+<div id="content" style="width:100%">
+
+<!-- header -->
+<div th:replace="Layout :: header"></div>
+
+            <!-- Page Content -->
+           <div id="PageContent" style="width:100%">
+           
+<div class="container">
+<h3 >Search Staff</h3>
+
+
+<form action="#" th:action="@{/API}" method="GET">
+<input type="checkbox" id="searchStatus" name="searchStatus" th:value="1" checked="true">
+  <label for="searchStatus"> Active?</label>
+<input type="text" placeholder="Enter ID" name="searchID" id="searchID" class="form-control mb-4 col-4" th:value="${searchID}"> 
+<input type="text" placeholder="Enter Name" name="searchName" id="searchName" class="form-control mb-4 col-4" th:value="${searchName}"> 
+<button type="submit" class="btn btn-info col-2">SEARCH</button>
+</form>
+<p th:value="${query}" th:name="${query}"></p>
+<table id="example" class="display table">
+ 		<thead>
+            <tr>
+                <th>Staff No</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Status</th>
+                <th></th>
+                
+            </tr>
+        </thead>
+         <tbody>						 					  
+						  <tr th:each="staffs2 : ${staff2}"  >
+						   <td   th:value="${staffs2.staffNo}" th:text="${staffs2.staffNo}"></td>
+						    <td   th:value="${staffs2.staffName}" th:text="${staffs2.staffName}"></td>
+						    <td   th:value="${staffs2.staffPosition}" th:text="${staffs2.staffPosition}"></td>
+						    <td   th:value="${staffs2.staffStatusDesc}" th:text="${staffs2.staffStatusDesc}"></td>
+						    <td>  <a th:href="@{/API/{staffid}(staffid=${staffs2.staffNo})}" class="btn btn-primary">New</a>
+						    	<a th:href="@{/API/}" class="btn btn-primary">All</a> 	
+						    </td>
+						  </tr>					   
+						
+			</tbody>	
+			
+					  
+ </table>
+
+
+ <a th:if="${staff.currentPage > 0}" th:href="@{'/API?page=' + ${staff.currentPage - 1}} + ${query}">Previous  </a>
+ <span th:unless="${staff.currentPage > 0}">Previous  </span>
+ ( [[${staff.currentPage}]]/[[${staff.TotalPages}]])
+ <a th:if="${staff.currentPage < staff.totalPages-1}" th:href="@{'/API?page=' + ${staff.currentPage + 1}} + ${query}">Next  </a>
+ <span th:unless="${staff.currentPage < staff.totalPages-1}">Next  </span>
+
+
+
+
+<!-- <input type="text" placeholder="Enter ID" name="searchID" id="searchID" class="form-control mb-4 col-4"> 
+<input type="text" placeholder="Enter Name" name="searchName" id="searchName" class="form-control mb-4 col-4"> 
+<a th:href="@{/API}" class="btn btn-primary">Search</a> -->
+<br>
+<br>
+</div>
+<!-- Footer -->
+<div th:replace="Layout :: footer"></div>  
+
+</div>
+</div>
+</div>
+
+</body>
+
+<script>
+
+document.getElementById("demo").innerHTML = 
+"The full URL of this page is:<br>" + window.location.href;
+</script>
+</html>

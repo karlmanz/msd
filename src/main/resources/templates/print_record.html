@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<div th:replace="Layout :: import"></div>
+<title>Print Document</title>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" href="../static/css/owl.carousel.min.css"
+	th:href="@{/css/owl.carousel.min.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/print.css"
+	th:href="@{/css/print.css}">
+</head>
+<body>
+	<div class="Viewcontainer" style="width: 100%; height: 100%">
+		<h3 style="text-align: left;" th:inline="text">
+			[[${document.title}]]</h3>
+		<hr>
+		<img th:src="@{/img/MSDLH0001.jpg}" alt="image" style="width: 100%">
+		<div class="top-left" th:utext="${document.content}"></div>
+
+		<br>
+	</div>
+
+</body>
+
+</html>

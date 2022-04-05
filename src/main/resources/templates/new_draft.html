@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<div th:replace="Layout :: import"></div>
+<link href="../static/css/lib/summernote/summernote.min.css"
+	th:href="@{/css/lib/summernote/summernote.min.css}" rel="stylesheet">
+<link href="../static/css/lib/summernote/summernote.css"
+	th:href="@{/css/lib/summernote/summernote.css}" rel="stylesheet">
+<title>New Document</title>
+</head>
+
+<body>
+
+	<!-- Sidebar -->
+	<div th:replace="Layout :: sidemenu"></div>
+	<!-- header -->
+	<div th:replace="Layout :: header"></div>
+
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-8 p-r-0 title-margin-right">
+						<div class="page-header">
+							<div class="page-title">
+								<h1>Document Drafting</h1>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 p-l-0 title-margin-left">
+						<div class="page-header">
+							<div class="page-title">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">Document</li>
+									<li class="breadcrumb-item active">New</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /# column -->
+				</div>
+				<section id="main-content">
+					<div class="row">
+						<div class="col">
+							<div class="card">
+								<div class="card-title">
+									<h4>New Document</h4>
+								</div>
+								<div class="card-body">
+									<div class="basic-elements">
+										<form th:action="@{/document/process/saveDocument}" th:object="${document}"
+											method="POST">
+											<div class="form-check">
+												<div class="col-sm-10" th:if="${staff != null}">
+													<input th:name="isStaff" class="form-check-input"
+														type="hidden" value="1" id="flexCheckDefault"
+														readonly="readonly">
+												</div>
+												<div class="col-sm-10" th:unless="${staff != null}">
+													<input th:unless="${staff != null}" th:field="*{isStaff}"
+														class="form-check-input" type="checkbox" value=""
+														id="flexCheckDefault"> <label
+														class="form-check-label" for="flexCheckDefault">
+														Tick if the recipient is not a staff. </label>
+												</div>
+											</div>
+											<div class="form-group">
+												<label>Staff ID</label>
+												<div class="col-sm-10">
+													<input th:if="${staff != null}" type="text"
+														class="form-control" th:name="staffID"
+														th:value="${staff.staffNo}" placeholder="Staff ID"
+														readonly="readonly"> <input
+														th:unless="${staff != null}" type="text"
+														class="form-control" th:field="*{staffID}"
+														placeholder="Staff ID">
+												</div>
+											</div>
+											<div class="form-group">
+												<label>Recipient Name</label>
+												<div class="col-sm-10">
+													<input th:if="${staff != null}" type="text"
+														class="form-control" th:name="recipientName"
+														th:value="${staff.staffName}" placeholder="Recipient Name"
+														readonly="readonly" required> <input
+														th:unless="${staff != null}" type="text"
+														class="form-control" th:field="*{recipientName}"
+														placeholder="Recipient Name" required>
+												</div>
+											</div>
+											<div class="form-group">
+												<label>Recipient Address</label>
+												<div class="col-sm-10">
+													<input th:if="${staff != null}" type="text"
+														class="form-control" th:name="address"
+														th:value="${staff.campusName} + ', ' + ${staff.kcdName}"
+														placeholder="Recipient Address" readonly="readonly">
+													<input th:unless="${staff != null}" type="text"
+														class="form-control" th:field="*{address}"
+														placeholder="Recipient Address">
+												</div>
+											</div>
+											<div class="form-group">
+												<label>Title</label>
+												<div class="col-sm-10">
+													<input th:if="${template != '0'}" type="text" class="form-control" th:name="title"
+														 th:value="${template.title}" placeholder="Document Title" required>
+													<input th:unless="${template != '0'}" type="text" class="form-control" th:field="*{title}"
+														placeholder="Document Title" required>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label>Reference Code</label>
+												<div class="col-sm-10">
+													<select class="form-control" th:field="*{fileRefNumber}"
+														required>
+														<option class="dropdown-item"
+															th:each="refNo: ${listFileRefNumber}"
+															th:value="${refNo.id}" th:text="${refNo.fileTopic} + ': ' + ${refNo.fileSubTopic.subTopic1} + '/' + ${refNo.fileSubTopic.subTopic2} + '/' + ${refNo.fileSubTopic.subTopic3} + ': ' + ${refNo.refCodeID}"></option>
+													</select>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label>Signature</label>
+												<div class="col-sm-10">
+													<input th:if="${template != '0'}" type="text" class="form-control"
+														th:name="contentSign"  th:value="${template.contentSign}" placeholder="Signture">
+													<input th:unless="${template != '0'}" type="text" class="form-control"
+														th:field="*{contentSign}" placeholder="Signature">
+												</div>
+											</div>
+											<div class="form-group">
+												<label>CC</label>
+												<div class="col-sm-10">
+													<input th:if="${template != '0'}" type="text" class="form-control"
+														th:name="contentCC"  th:value="${template.contentCC}" placeholder="CC">
+															<input th:unless="${template != '0'}" type="text" class="form-control"
+														th:field="*{contentCC}" placeholder="CC">
+												</div>
+											</div>
+											<div class="form-group">
+												<label>Date</label>
+												<div class="col-sm-10">
+													<input type="date" id="mdate" class="form-control"
+														th:field="*{docDate}">
+												</div>
+											</div>
+											<div class="form-check">
+												<div class="col-sm-10">
+													<input th:field="*{isConfidential}"
+														class="form-check-input" type="checkbox" value=""
+														id="flexCheckDefault"> <label
+														class="form-check-label" for="flexCheckDefault">
+														Tick if the document is confidential.</label>
+												</div>
+											</div>
+											<input type="hidden" th:name="enterBy"
+												th:value="${#httpServletRequest.remoteUser}" /> <input
+												type="hidden" th:name="enterDate"
+												th:value="${#dates.format(#dates.createNow(),'YYYY-MM-dd HH:mm')}" />
+											<div class="form-group">
+												<label>Content</label>
+												<div class="col-sm-10">
+													<textarea th:if="${template != '0'}" id="summernote"
+														style="height: 528.481px;" rows="10" name="editordata"
+														th:name="content" th:text="${template}" required></textarea>
+													<textarea th:unless="${template != '0'}" id="summernote"
+														style="height: 528.481px;" rows="10" name="editordata"
+														th:field="*{content}" required></textarea>
+												</div>
+											</div>
+											<button type="submit"
+												class="btn btn-primary btn-flat m-b-10 m-l-5">Save
+												Document</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Footer -->
+					<div class="row">
+						<div class="col-lg-12">
+							<div th:replace="Layout :: footer"></div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="Layout :: js"></div>
+
+	<script type="text/javascript"
+		th:src="@{/js/lib/summernote/summernote.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/lib/summernote/summernote.js}"></script>
+	<script>
+		$(document).ready(function() {
+			$('#summernote').summernote();
+		});
+	</script>
+	<script>
+		$('#summernote').summernote({
+			tabsize : 2,
+			height : 400,
+
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+<th:block th:fragment="import">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- ================= Favicon ================== -->
+	<!-- Standard -->
+	<link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+	<!-- Retina iPad Touch Icon-->
+	<link rel="apple-touch-icon" sizes="144x144"
+		href="http://placehold.it/144.png/000/fff">
+	<!-- Retina iPhone Touch Icon-->
+	<link rel="apple-touch-icon" sizes="114x114"
+		href="http://placehold.it/114.png/000/fff">
+	<!-- Standard iPad Touch Icon-->
+	<link rel="apple-touch-icon" sizes="72x72"
+		href="http://placehold.it/72.png/000/fff">
+	<!-- Standard iPhone Touch Icon-->
+	<link rel="apple-touch-icon" sizes="57x57"
+		href="http://placehold.it/57.png/000/fff">
+	<!-- Styles -->
+	<!-- note from ahmad: some of these are useless to our project will delete them later if i had the chance. -->
+	<!-- 	<link href="../static/css/lib/calendar2/pignose.calendar.min.css"
+		rel="stylesheet"
+		th:href="@{/css/lib/calendar2/pignose.calendar.min.css}">
+	<link href="../static/css/lib/chartist/chartist.min.css"
+		rel="stylesheet" th:href="@{/css/lib/chartist/chartist.min.css}"> -->
+	<link href="../static/css/lib/font-awesome.min.css" rel="stylesheet"
+		th:href="@{/css/lib/font-awesome.min.css}">
+	<link href="../static/css/lib/themify-icons.css" rel="stylesheet"
+		th:href="@{/css/lib/themify-icons.css}">
+	<link href="../static/css/lib/owl.carousel.min.css" rel="stylesheet"
+		th:href="@{/css/lib/owl.carousel.min.css}" />
+	<link href="../static/css/lib/owl.theme.default.min.css"
+		rel="stylesheet" th:href="@{/css/lib/owl.theme.default.min.css}" />
+	<link href="../static/css/lib/weather-icons.css" rel="stylesheet"
+		th:href="@{/css/lib/weather-icons.css}" />
+	<link href="../static/css/lib/menubar/sidebar.css" rel="stylesheet"
+		th:href="@{/css/lib/menubar/sidebar.css}">
+	<link href="../static/css/lib/bootstrap.min.css" rel="stylesheet"
+		th:href="@{/css/lib/bootstrap.min.css}">
+	<link href="../static/css/lib/helper.css" rel="stylesheet"
+		th:href="@{/css/lib/helper.css}">
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css"
+		th:href="@{/css/style.css}">
+
+</th:block>
+</head>
+<body>
+
+
+	<!-- Header -->
+	<!-- Sidebar -->
+	<div
+		class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures"
+		th:fragment="sidemenu">
+		<div class="nano">
+			<div class="nano-content">
+				<ul>
+					<div class="logo">
+						<a href="/"> <!-- <img src="assets/images/logo.png" alt="" /> -->
+							<span>HR Template</span></a>
+					</div>
+					<li class="label">Main Menu</li>
+					<li><a class="sidebar-sub-toggle"><i class="ti-home"></i>
+							Dashboard <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+						<ul>
+							<li><a th:href="@{/}">Home Page</a></li>
+
+						</ul></li>
+
+					<li sec:authorize="hasAuthority('Admin')" class="label">TEMPLATE</li>
+					<li sec:authorize="hasAuthority('Admin')"><a
+						class="sidebar-sub-toggle"><i class="fa fa-file-text-o"></i> Template
+							Setup <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+						<ul>
+							<li><a th:href="@{/template/showNewTemplateForm}">New Template</a></li>
+							<li><a th:href="@{/template}">Template List</a></li>
+						</ul></li>
+					<li sec:authorize="hasAuthority('Admin')"><a
+						class="sidebar-sub-toggle"><i class="fa fa-folder-o"></i> Filing
+							Code <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+						<ul>
+							<li><a th:href="@{/filingCode/topic}">File Topic</a></li>
+							<li><a th:href="@{/filingCode/subTopic}">File SubTopic</a></li>
+							<li><a th:href="@{/filingCode/refNumber}">Reference Code</a></li>
+							<li><a th:href="@{/filingCode/organization}">Organization</a></li>
+						</ul></li>
+
+					<li class="label">DOCUMENT</li>
+					<li><a class="sidebar-sub-toggle"><i class="fa fa-pencil-square-o"></i>
+							Document Process <span
+							class="sidebar-collapse-icon ti-angle-down"></span></a>
+						<ul>
+							<li><a th:href="@{/document/process/chooseTemplate}">New</a></li>
+							<li><a th:href="@{/document/process/draft}">Draft</a></li>
+							<li><a th:href="@{/document/process/submitted}">Submitted</a></li>
+							<!--<li><a href="/Recommended">Recommended/Verified</a></li>  -->
+							<li><a th:href="@{/document/process/approved}">Approved</a></li>
+							<li sec:authorize="hasAuthority('Admin')"><a
+								th:href="@{/document/process/recycleBin}">Recycle Bin</a></li>
+						</ul></li>
+					<li><a class="sidebar-sub-toggle"><i class="ti-files"></i>
+							Document Category <span
+							class="sidebar-collapse-icon ti-angle-down"></span></a>
+						<ul>
+							<li><a th:href="@{/document/category/title}">Title</a></li>
+							<li><a th:href="@{/document/category/year}">Year</a></li>
+							<li><a th:href="@{/document/category/staffID}">Staff ID</a></li>
+							<li><a th:href="@{/document/category/mainTopic}">Main Topic</a></li>
+							<li><a th:href="@{/document/category/refNo}">Reference Number</a></li>
+						</ul></li>
+
+					<li sec:authorize="hasAuthority('Admin')" class="label">ADMIN
+						MAINTENANCE</li>
+					<li sec:authorize="hasAuthority('Admin')"><a
+						class="sidebar-sub-toggle"><i class="ti-user"></i> User List
+							and Registration <span
+							class="sidebar-collapse-icon ti-angle-down"></span></a>
+						<ul>
+							<li><a th:href="@{/UserRegistration}">User Registration</a></li>
+							<li><a th:href="@{/admin/userRole}">User List</a></li>
+						</ul></li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /sidebar -->
+	<!-- header -->
+	<div class="header" th:fragment="header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="float-left">
+						<div class="hamburger sidebar-toggle">
+							<span class="line"></span> <span class="line"></span> <span
+								class="line"></span>
+						</div>
+					</div>
+					<div class="float-right">
+						<div class="dropdown dib">
+							<div class="header-icon" data-toggle="dropdown">
+								<i class="ti-bell"></i>
+								<div class="drop-down dropdown-menu dropdown-menu-right">
+									<div class="dropdown-content-heading">
+										<span class="text-left">Recent Notifications</span>
+									</div>
+									<div class="dropdown-content-body">
+										<ul>
+											<li><a href="#"> <img
+													class="pull-left m-r-10 avatar-img" src="#" alt="" />
+													<div class="notification-content">
+														<small class="notification-timestamp pull-right">02:34
+															PM</small>
+														<div class="notification-heading">System</div>
+														<div class="notification-text">no new notifications</div>
+													</div>
+											</a></li>
+
+											<li class="text-center"><a href="#" class="more-link">See
+													All</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="dropdown dib">
+							<div class="header-icon" data-toggle="dropdown">
+								<i class="ti-email"></i>
+								<div class="drop-down dropdown-menu dropdown-menu-right">
+									<div class="dropdown-content-heading">
+										<span class="text-left">No New Messages</span> <a href="#">
+											<i class="ti-pencil-alt pull-right"></i>
+										</a>
+									</div>
+									<div class="dropdown-content-body">
+										<ul>
+											<li class="notification-unread"><a href="#"> <img
+													class="pull-left m-r-10 avatar-img" src="#" alt="" />
+													<div class="notification-content">
+														<small class="notification-timestamp pull-right">02:34
+															PM</small>
+														<div class="notification-heading">System</div>
+														<div class="notification-text">no new emails</div>
+													</div>
+											</a></li>
+
+											<li class="text-center"><a href="#" class="more-link">See
+													All</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="dropdown dib">
+							<div class="header-icon" data-toggle="dropdown">
+								<span class="user-avatar" th:inline="text">[[${#httpServletRequest.remoteUser}]]
+									<i class="ti-angle-down f-s-10"></i>
+								</span>
+							</div>
+
+							<!-- Profile menu -->
+							<div
+								class=" drop-down dropdown-menu dropdown-profile dropdown-menu-right">
+								<div class="dropdown-content-body">
+									<ul>
+										<li><a class="dropdown-item"
+											th:href="@{/profile/}"><i
+												class="ti-user"></i><span>Profile</span></a></li>
+										<li class="dropdown-item">
+											<form th:action="@{/logout}" method="post">
+												<i class="ti-power-off"></i> <input class="dropdown-item"
+													type="submit" value="Logout">
+											</form>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+	<div class="footer" th:fragment="footer">
+		<!-- Footer Links -->
+		<div class="container-fluid text-center text-md-left">
+
+			<!-- Grid row -->
+			<div class="row">
+
+				<!-- Grid column -->
+				<div class="col-md-6 mt-md-0 mt-3">
+
+					<!-- Content -->
+					<h5 class="text-uppercase"></h5>
+					<p>
+						International Islamic University Malaysia<br> P.O. Box 10,
+						50728 Kuala Lumpur<br> <br> <b>Phone :</b> (+603) 6421
+						6421<br> <b>Fax :</b> (+603) 6421 4053<br> <b>Email
+							:</b> webmaster@iium.edu.my
+
+					</p>
+
+				</div>
+				<!-- Grid column -->
+
+				<hr class="clearfix w-100 d-md-none pb-3">
+
+				<!-- Grid column -->
+				<div class="col-md-3 mb-md-0 mb-3">
+
+					<!-- Links -->
+					<h5 class="text-case">
+						<b>Related Websites</b>
+					</h5>
+
+					<ul class="list-styled">
+						<li><a href="https://www.iium.edu.my/" style="color: Black">IIUM
+								Website</a></li>
+						<li><a href="https://www.iium.edu.my/division/msd/"
+							style="color: black">MSD Website</a></li>
+						<li><a href="https://huris.iium.edu.my/" style="color: black">HURIS
+								Online</a></li>
+						<li><a href="https://huris.iium.edu.my/irecruit/login"
+							style="color: black">iRecruit</a></li>
+					</ul>
+
+				</div>
+				<!-- Grid column -->
+
+			</div>
+			<!-- Grid row -->
+
+
+			<!-- Footer Links -->
+		</div>
+		<!-- Copyright -->
+		<div class="footer-copyright font-small text-center py-3">© 2021
+			Copyright: International Islamic University Malaysia</div>
+		<!-- Copyright -->
+
+
+	</div>
+	<!-- Footer -->
+	<div th:fragment="js">
+		<!-- jquery vendor -->
+		<script type="text/javascript" th:src="@{/js/lib/jquery.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/lib/jquery.nanoscroller.min.js}"></script>
+		<!-- nano scroller -->
+		<script type="text/javascript" th:src="@{/js/lib/menubar/sidebar.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/lib/preloader/pace.min.js}"></script>
+		<!-- sidebar -->
+		<script type="text/javascript" th:src="@{/js/lib/bootstrap.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/scripts.js}"></script>
+		<!-- bootstrap -->
+		<script type="text/javascript"
+			th:src="@{/js/lib/calendar-2/moment.latest.min.js}"></script>
+		<!--<script type="text/javascript"
+			th:src="@{/js/lib/calendar-2/pignose.calendar.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/lib/calendar-2/pignose.init.js}"></script>
+		 <script type="text/javascript"
+			th:src="@{/js/lib/weather/jquery.simpleWeather.min.js}"></script>
+		 <script type="text/javascript"
+			th:src="@{/js/lib/weather/weather-init.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/lib/circle-progress/circle-progress.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/lib/circle-progress/circle-progress-init.js}"></script>
+
+		<script type="text/javascript"
+			th:src="@{/js/lib/sparklinechart/jquery.sparkline.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/lib/sparklinechart/sparkline.init.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/lib/chartist/chartist.min.js}"></script>-->
+		<script type="text/javascript"
+			th:src="@{/js/lib/owl-carousel/owl.carousel.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/lib/owl-carousel/owl.carousel-init.js}"></script>
+		<!-- scripit init-->
+		<script type="text/javascript" th:src="@{/js/dashboard2.js}"></script>
+	</div>
+</body>
+</html>

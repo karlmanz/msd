@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<div th:replace="Layout :: import"></div>
+<title>Profile</title>
+
+</head>
+<body>
+	<!-- Sidebar -->
+	<div th:replace="Layout :: sidemenu"></div>
+	<!-- header -->
+	<div th:replace="Layout :: header"></div>
+	<!-- Page Content -->
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<br> <br>
+				<h3>Profile</h3>
+				<hr>
+				<br> <br>
+				<div class="container bootstrap snippets bootdey">
+					<div class="profile card">
+						<div class="profile-body">
+							<div class="profile-bio">
+								<div class="row">
+									<div class="col-md-5 text-center">
+										<img class="img-thumbnail md-margin-bottom-10"
+											th:src="@{https://xcess.iium.edu.my/packages/card/printing/camera/uploads/original/{userID}.jpeg (userID=${user.userID})}"
+											alt="" style="height:300px;width:250px;" >
+									</div>
+									<div class="col-md-7">
+										<h2 th:inline="text">[[${user.fullname}]]</h2>
+										<span><strong>Job:</strong> <!--  HERE WE SHOULD HAVE staff.smtitle i think--></span>
+										<span><strong>Position:</strong> <!--  HERE WE SHOULD HAVE staff.positstion i think--></span>
+										<hr>
+										<p>BIO INFO</p>
+
+									</div>
+									<br>
+								</div>
+								<div th:if="${user.username == #httpServletRequest.remoteUser}"
+									class="row">
+									<div class="col">
+										<form action="#"
+											th:action="@{editPass}"
+											th:object="${user}" method="POST">
+
+											<div class="mb-3">
+												<label for="username" class="form-label">Username</label> <input
+													type="text" th:field="*{username}" id="username"
+													readonly="readonly" class="form-control mb-4 col-4" />
+											</div>
+											<div class="mb-3">
+												<label for="fullname" class="form-label">Full Name</label> <input
+													type="text" th:field="*{fullname}" id="fullname"
+													readonly="readonly" class="form-control mb-4 col-4">
+											</div>
+											<div class="mb-3">
+												<label for="email" class="form-label">Email </label> <input
+													type="text" th:field="*{useremail}" id="email"
+													readonly="readonly" class="form-control mb-4 col-4">
+											</div>
+											<div class="mb-3">
+												<label for="pass" class="form-label">Password </label> <input
+													type="password" th:name="password" id="pass"
+													class="form-control mb-4 col-4" pattern=".{8,16}" title="8 to 16 characters" required />
+											</div>
+											<div class="form-group row">
+
+												<div class="col-8">
+												Roles: <span sec:authentication="principal.authorities">NOT FOUND</span>
+													<th:block th:each="role: ${listRoles}">
+														<input type="hidden" th:field="*{roles}" th:text="null"
+															th:value="${role.id}" class="m-2" />
+													</th:block>
+													
+												</div>
+												<input type="hidden" th:field="*{accountNonLocked}" />
+											</div>
+											<button type="submit" class="btn btn-info col-2">Update
+												Password</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br> <br>
+				<!-- Footer -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div th:replace="Layout :: footer"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div th:replace="Layout :: js"></div>
+</body>
+</html>

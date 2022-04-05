@@ -1,0 +1,220 @@
+<!--  the user should input the supervisor's id here and confirm 
+		that they want to send the document-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="Layout :: import"></div>
+<title>Send to Supervisor</title>
+
+</head>
+<body>
+
+	<!-- Sidebar -->
+	<div th:replace="Layout :: sidemenu"></div>
+	<!-- header -->
+	<div th:replace="Layout :: header"></div>
+
+	<!-- Page Content -->
+
+
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-8 p-r-0 title-margin-right">
+						<div class="page-header">
+							<div class="page-title">
+								<h1 th:inline="text">[[${document.title}]]</h1>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 p-l-0 title-margin-left">
+						<div class="page-header">
+							<div class="page-title">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">Document</li>
+									<li class="breadcrumb-item active">Send Document for
+										Approval</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-12">
+						<a th:href="@{/document/process/showFormForUpdateDocument/{id}(id=${document.id})}"
+							class="btn btn-primary btn-flat m-b-10 m-l-5">Edit</a>
+						<!-- th:target="_blank" forces a new tab -->
+						<a th:href="@{/document/process/printDoc/{id}(id=${document.id})}"
+							th:target="_blank" class="btn btn-success btn-flat m-b-10 m-l-5">Print</a>
+						<a th:href="@{/document/process/printDocLH/{id}(id=${document.id})}"
+							th:target="_blank" class="btn btn-success btn-flat m-b-10 m-l-5">Print (Letterhead)</a>	
+						<a class="btn btn-success btn-flat m-b-10 m-l-5 text-white" data-toggle="modal" data-target="#submitModal" onclick="$('#submitModal').modal()">Submit</a>
+												
+
+					</div>
+				</div>
+				<!-- FORM FOR Doc -->
+				<div class="row" >
+					<div class="col-10">
+					
+						<div class="card" style="border-radius: 15px;height:900px;overflow:auto;">
+							<div class="card-title">
+								<p class="text-dark">Title : <a class="small text-muted">[[${document.title}]] </a></p>
+								<hr class="my-0" />
+								<p class="text-dark">Recipient : <a class="small text-muted">[[${document.recipientName}]]</a></p>
+								<hr class="my-0" />
+								<p class="text-dark">Address : <a class="small text-muted">[[${document.address}]]</a></p>
+								<hr class="my-0" />
+								<div class="d-flex justify-content-between">
+								              <div>
+								                <p><a href="#!" class="text-dark"></a> [[${document.fileRefNumber.refCodeID}]] </p>
+								                <p class="small text-muted"></p>
+								              </div>
+								              <div>
+								                <p class="small text-muted">[[${document.docDate}]]</p>
+								                <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
+								                  <i class="fa fa-star"></i>
+								                  <i class="fa fa-star"></i>
+								                  <i class="fa fa-star"></i>
+								                  <i class="fa fa-star"></i>
+								                </div>
+								                
+								              </div>
+								            </div>
+								<hr class="my-0" />            
+							</div>
+							<div class="card-body" style="overflow:auto;">	
+							<script th:inline="javascript">
+										document.write(/*[[${document.content}]]*/ 'value');
+							</script>							
+							</div>
+							</div>
+							</div>
+				</div>
+				<!-- FORM FOR Comment/Review/History -->
+				<div class="row">
+					<div class="col-10">
+						<div class="card">
+							<div class="card-title">
+								<h4>Comment</h4>
+							</div>
+							<div class="card-body">
+								<div class="basic-elements">
+									
+										<div class="form-group">
+											<label>Reviewer's ID</label>
+											<div class="col-sm-10">
+											<label>Reviewer's Comment</label>	
+											<table class="table table-striped">
+										
+										<tbody>
+											<tr th:each="review: ${documentReview0}">
+												<td class="text-left">
+												<span class="text"> <b  th:text="${review.comment}"></b></span>
+												<br>
+												         
+												</td>
+												
+											</tr>
+											
+										</tbody>
+									</table>
+											</div>
+										</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>									
+				
+				<!-- FORM FOR picking supervisor id -->
+				<!-- <div class="row">
+					<div class="col-10">
+						<div class="card">
+							<div class="card-title">
+								<h4>Send to Supervisor</h4>
+							</div>
+							<div class="card-body">
+								<div class="basic-elements">
+									<form th:action="@{/saveDocumentReview}"
+										th:object="${documentReview}" method="POST">
+										<div class="form-group">
+											<label>Supervisor's ID</label>
+											<div class="col-sm-10">
+												<select class="form-control" th:field="*{supervisorID}"
+														required>
+														<option value="" disabled selected>Supervisor's ID</option>
+														<option class="dropdown-item"
+															th:each="sv: ${listSV}" 
+															th:value="${sv.username}" th:text="${sv.fullname} +'-'+ ${sv.userID}"></option>
+													</select>
+											</div>
+										</div>
+										<input type="hidden" th:name="document"
+											th:value="${document.id}" class="form-control mb-4 col-4">
+										<input type="hidden" th:name="refCodeID"
+											th:value="${document.fileRefNumber.refCodeID}"
+											class="form-control mb-4 col-4">
+										<button type="submit"
+											class="btn btn-primary btn-flat m-b-10 m-l-5">Send</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				 -->
+				 <!-- Modal -->
+                                    <div class="modal fade" id="submitModal">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <form th:action="@{/document/process/saveDocumentReview}"
+														th:object="${documentReview}" method="POST">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Submit for Review</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    
+														<div class="form-group">
+															<label>Choose Reviewer's ID</label>
+															<div class="col-sm-10">
+																<select class="form-control" th:field="*{supervisorID}"
+																		required>
+																		<option value="" disabled selected>Reviewer's ID</option>
+																		<option class="dropdown-item"
+																			th:each="sv: ${listSV}" 
+																			th:value="${sv.username}" th:text="${sv.fullname} +'-'+ ${sv.userID}"></option>
+																	</select>
+															</div>
+														</div>
+														<input type="hidden" th:name="document"
+															th:value="${document.id}" class="form-control mb-4 col-4">
+														<input type="hidden" th:name="refCodeID"
+															th:value="${document.fileRefNumber.refCodeID}"
+															class="form-control mb-4 col-4">
+													
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+
+			</div>
+		</div>
+	</div>
+	<div th:replace="Layout :: js"></div>
+</body>
+
+</html>

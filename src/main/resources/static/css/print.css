@@ -1,0 +1,13 @@
+/* Container holding the image and the text */
+.Viewcontainer {
+	position: relative;
+	text-align: center;
+	background-color: white;
+}
+/* Top left text */
+.top-left {
+	position: absolute;
+	top: 25%;
+	left: 15%;
+	/*add margin right and bottom if the text goes out of the image */
+}

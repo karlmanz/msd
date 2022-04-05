@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="Layout :: import"></div>
+<title>Template List</title>
+
+</head>
+
+<body>
+
+	<!-- Sidebar -->
+	<div th:replace="Layout :: sidemenu"></div>
+	<!-- header -->
+	<div th:replace="Layout :: header"></div>
+
+	<!-- Page Content -->
+
+
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-8 p-r-0 title-margin-right">
+						<div class="page-header">
+							<div class="page-title">
+								<h1>Template Drafting</h1>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 p-l-0 title-margin-left">
+						<div class="page-header">
+							<div class="page-title">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">Template</li>
+									<li class="breadcrumb-item active">Template List</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+				<section id="main-content">
+					<div class="row">
+						<div class="col-sm-10">
+							<br> <br> <a th:href="@{template/showNewTemplateForm}"
+								class="btn btn-primary btn-flat m-b-10 m-l-5"> Add Template
+							</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-title">
+									<h4>Templates</h4>
+
+								</div>
+								<div class="bootstrap-data-table-panel">
+									<div class="table-responsive">
+										<table id="row-select"
+											class="display table table-borderd table-hover">
+											<thead>
+												<tr>
+													<th>Title</th>
+													<th>Reference Code</th>
+													<th>Start Date</th>
+													<th>End Date</th>
+													<th>Created On</th>
+													<th>Entry By</th>
+													<th></th>
+												</tr>
+											</thead>
+
+											<tbody>
+												<tr th:each="template:${listTemplate}">
+													<td th:text="${template.title}"></td>
+													<td th:text="${template.refCodeID}"></td>
+													<td th:text="${template.dateStart}"></td>
+													<td th:text="${template.dateEnd}"></td>
+													<td th:text="${template.enterDate}"></td>
+													<td th:text="${template.enterBy}"></td>
+													<td>
+														<div class="btn-group">
+															<a
+																th:href="@{template/showFormForUpdateTemplate/{id}(id=${template.id})}"
+																class="btn btn-primary btn-flat m-b-10 m-l-5">Update</a>
+															<a th:href="@{template/printTemplate/{id}(id=${template.id})}"
+																class="btn btn-success btn-flat m-b-10 m-l-5">Print</a>
+															<a th:href="@{template/deleteTemplate/{id}(id=${template.id})}" onclick="return confirm('Are you sure you want to delete this item?');"
+																class="btn btn-danger btn-flat m-b-10 m-l-5">Delete</a>
+														</div>
+													</td>
+
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<th>Title</th>
+													<th>Reference Code</th>
+													<th>Start Date</th>
+													<th>End Date</th>
+													<th>Created On</th>
+													<th>Entry By</th>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- /# card -->
+						</div>
+						<!-- /# column -->
+					</div>
+					<!-- /# row -->
+
+					<!-- Page content -->
+					<!-- Footer -->
+					<div class="row">
+						<div class="col-lg-12">
+							<div th:replace="Layout :: footer"></div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<div th:replace="Layout :: js"></div>
+	<!-- scripit init-->
+	<script type="text/javascript"
+		th:src="@{/js/lib/data-table/datatables.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/lib/data-table/dataTables.buttons.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/lib/data-table/jszip.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/lib/data-table/pdfmake.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/lib/data-table/vfs_fonts.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/lib/data-table/buttons.html5.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/lib/data-table/buttons.print.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/lib/data-table/buttons.colVis.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/js/lib/data-table/datatables-init.js}"></script>
+
+</body>
+</html>

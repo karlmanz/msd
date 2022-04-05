@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.table {
+   margin-left: 0;
+   width: 100% !important; 
+}
+#editorSection{
+	margin: auto;
+	width: 80% !important;
+	padding:50px;
+}
+textarea.editor{
+	min-height: 400px;
+}

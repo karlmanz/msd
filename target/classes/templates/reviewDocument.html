@@ -1,0 +1,116 @@
+<!--  the user should input the supervisor's id here and confirm 
+		that they want to send the document-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="Layout :: import"></div>
+<title>Review Document</title>
+
+</head>
+<body>
+
+	<!-- Sidebar -->
+	<div th:replace="Layout :: sidemenu"></div>
+	<!-- header -->
+	<div th:replace="Layout :: header"></div>
+
+	<!-- Page Content -->
+
+
+	<div class="content-wrap"
+		th:if="${documentReview.supervisorID} == ${#httpServletRequest.remoteUser}">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-8 p-r-0 title-margin-right">
+						<div class="page-header">
+							<div class="page-title">
+								<h1 th:inline="text">[[${documentReview.document.title}]]</h1>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 p-l-0 title-margin-left">
+						<div class="page-header">
+							<div class="page-title">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">Document</li>
+									<li class="breadcrumb-item active">Review Document</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card Viewcontainer">
+							<div class="card-title">
+								<h4 th:inline="text">[[${documentReview.document.title}]]</h4>
+							</div>
+
+							<img th:src="@{/img/MSDLH0001.jpg}" alt="image">
+							<div class="top-left" style="width: 70%;"
+								th:utext="${documentReview.document.content}"></div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<a
+							th:href="@{/document/process/showFormForUpdateDocumentbySupervisor/{id}(id=${documentReview.id})}"
+							class="btn btn-primary btn-flat m-b-10 m-l-5">Edit</a>
+						<!-- th:target="_blank" forces a new tab -->
+						<a
+							th:href="@{/document/process/printDocument/{id}(id=${documentReview.document.id})}"
+							th:target="_blank" class="btn btn-success btn-flat m-b-10 m-l-5">Print</a>
+
+					</div>
+				</div>
+				<!-- FORM FOR picking supervisor id -->
+				<div class="row">
+					<div class="col">
+						<div class="card">
+							<div class="card-title">
+								<h4>Review Document</h4>
+							</div>
+							<div class="card-body">
+								<div class="basic-elements">
+									<form th:action="@{/document/process/saveDocumentReview/draft}"
+										th:object="${documentReview}" method="POST">
+										<div class="form-group">
+											<label>Supervisor's Comment</label>
+											<div class="col-sm-10">
+												<textarea class="form-control" rows="3"
+													th:field="*{comment}" placeholder="Remarks">
+											</textarea>
+											</div>
+										</div>
+										<input type="hidden" th:field="*{id}"
+											class="form-control mb-4 col-4"> <input type="hidden"
+											th:field="*{document}"> <input type="hidden"
+											th:field="*{refCodeID}" class="form-control mb-4 col-4" /> <input
+											type="hidden" th:name="commentDate"
+											th:value="${#dates.format(#dates.createNow(),'YYYY-MM-dd HH:mm')}" /><input
+											type="hidden" th:field="*{supervisorID}"
+											class="form-control mb-4 col-4">
+										<div class="btn-group">
+											<button type="submit"
+												th:formaction="@{/document/process/saveDocumentReview/approved}"
+												class="btn btn-success btn-flat m-b-10 m-l-5">Accepted</button>
+											<button type="submit"
+												class="btn btn-danger btn-flat m-b-10 m-l-5">Return
+												for re-checking</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div th:replace="Layout :: js"></div>
+</body>
+
+</html>

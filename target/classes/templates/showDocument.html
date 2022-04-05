@@ -1,0 +1,142 @@
+<!--  the user should input the supervisor's id here and confirm 
+		that they want to send the document-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="Layout :: import"></div>
+<title>Send to Supervisor</title>
+
+</head>
+<body>
+
+	<!-- Sidebar -->
+	<div th:replace="Layout :: sidemenu"></div>
+	<!-- header -->
+	<div th:replace="Layout :: header"></div>
+
+	<!-- Page Content -->
+
+
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-8 p-r-0 title-margin-right">
+						<div class="page-header">
+							<div class="page-title">
+								<h1 th:inline="text">[[${document.title}]]</h1>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 p-l-0 title-margin-left">
+						<div class="page-header">
+							<div class="page-title">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">Document</li>
+									<li class="breadcrumb-item active">Show Document </li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-12">
+						<a th:href="@{/document/process/showFormForUpdateDocument/{id}(id=${document.id})}"
+							class="btn btn-primary btn-flat m-b-10 m-l-5">Edit</a>
+						<!-- th:target="_blank" forces a new tab -->
+						<a th:href="@{/document/process/printDoc/{id}(id=${document.id})}"
+							th:target="_blank" class="btn btn-success btn-flat m-b-10 m-l-5">Print</a>
+						<a th:href="@{/document/process/printDocLH/{id}(id=${document.id})}"
+							th:target="_blank" class="btn btn-success btn-flat m-b-10 m-l-5">Print (Letterhead)</a>	
+
+					</div>
+				</div>
+				<!-- FORM FOR Doc -->
+				<div class="row" >
+					<div class="col-10">
+					
+						<div class="card" style="border-radius: 15px;height:900px;overflow:auto;">
+							<div class="card-title">
+								<p class="text-dark">Title : <a class="small text-muted">[[${document.title}]] </a></p>
+								<hr class="my-0" />
+								<p class="text-dark">Recipient : <a class="small text-muted">[[${document.recipientName}]]</a></p>
+								<hr class="my-0" />
+								<p class="text-dark">Address : <a class="small text-muted">[[${document.address}]]</a></p>
+								<hr class="my-0" />
+								<div class="d-flex justify-content-between">
+								              <div>
+								                <p><a href="#!" class="text-dark"></a> [[${document.fileRefNumber.refCodeID}]] </p>
+								                <p class="small text-muted"></p>
+								              </div>
+								              <div>
+								                <p class="small text-muted">[[${document.docDate}]]</p>
+								                <div class="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
+								                  <i class="fa fa-star"></i>
+								                  <i class="fa fa-star"></i>
+								                  <i class="fa fa-star"></i>
+								                  <i class="fa fa-star"></i>
+								                </div>
+								                
+								              </div>
+								            </div>
+								<hr class="my-0" />            
+							</div>
+							<div class="card-body" style="overflow:auto;">	
+							<script th:inline="javascript">
+										document.write(/*[[${document.content}]]*/ 'value');
+							</script>							
+							</div>
+							</div>
+							</div>
+				</div>
+				<!-- FORM FOR Comment/Review/History -->
+				<div class="row">
+					<div class="col-10">
+						<div class="card">
+							<div class="card-title">
+								<h4>Reviewer's Comments</h4>
+							</div>
+							<div class="card-body">
+								<div class="basic-elements">
+									
+										<div class="table-responsive">															
+											<table class="table">		
+											<thead>
+												<tr>
+													<th class="text-left">Reviewers</th>
+													<th class="text-left">Comments</th>
+													<th class="text-right">Date</th>
+												</tr>
+											</thead>									
+											<tbody>
+											<tr th:each="review: ${documentReview}">
+												<td><span class="text"> <b  th:text="${review.supervisorID}"></b></span></td>
+												<td>
+												<span class="text"> <b  th:text="${review.comment}"></b></span>												 
+												</td>
+												<td><span class="text"> <b  th:text="${review.commentDate}"></b></span></td>
+												
+											</tr>
+											
+											</tbody>
+											</table>
+											</div>
+										</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>									
+				
+				 -->
+				 
+			</div>
+		</div>
+	</div>
+	<div th:replace="Layout :: js"></div>
+</body>
+
+</html>
